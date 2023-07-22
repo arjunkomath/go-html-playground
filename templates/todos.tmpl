@@ -1,26 +1,44 @@
- <div className="mt-10 space-y-10">
-    <fieldset>
-      <legend className="text-sm font-semibold leading-6 text-gray-900">Pending</legend>
-      <div className="divide-y divide-gray-200">
-        {{ with .Todos }}
-          {{ range . }}
-            <div className="relative flex items-start pb-4 pt-3.5">
-              <div className="min-w-0 flex-1 text-sm leading-6">
-                <label htmlFor="comments" className="font-medium text-gray-900">
-                  {{ . }}
-                </label>
-              </div>
-              <div className="ml-3 flex h-6 items-center">
-                <input
-                  aria-describedby="comments-description"
-                  name="todo"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                />
-              </div>
-            </div>
-          {{ end }} 
-        {{ end }}
-      </div>
-  </fieldset>
+<div id="todo-list" class="mt-10 space-y-10 max-w-lg">
+  <div class="divide-y divide-gray-200">
+    {{ with .Todos }}
+      {{ range . }}
+        <div class="relative flex items-start pb-4 pt-3.5">
+          <div class="min-w-0 flex-1 text-sm leading-6">
+            <label htmlFor="comments" class="font-medium text-gray-900">
+              {{ . }}
+            </label>
+          </div>
+          <div class="ml-3 flex h-6 items-center">
+            <input
+              aria-describedby="comments-description"
+              name="todo"
+              type="checkbox"
+              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+          </div>
+        </div>
+      {{ end }} 
+    {{ end }}
+  </div>
+
+  <form hx-post="/todos" hx-target="#todo-list" class="mt-5 sm:flex sm:items-center">
+    <div class="w-full sm:max-w-xs">
+      <label htmlFor="task" class="sr-only">
+        task
+      </label>
+      <input
+        type="task"
+        name="task"
+        id="task"
+        class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        placeholder="What to do?"
+      />
+    </div>
+    <button
+      type="submit"
+      class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+    >
+    Add
+    </button>
+  </form>
 </div>

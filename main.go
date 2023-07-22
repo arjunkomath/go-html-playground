@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	todos := make([]string, 0)
+	todos = append(todos, "Some todo")
+
 	router := gin.Default()
 
 	router.LoadHTMLGlob("templates/*")
@@ -24,9 +27,13 @@ func main() {
 	})
 
 	router.GET("/todos", func(c *gin.Context) {
-		todos := make([]string, 0)
-		todos = append(todos, "Todo 1")
-		todos = append(todos, "Todo 2")
+		c.HTML(http.StatusOK, "todos.tmpl", gin.H{
+			"Todos": todos,
+		})
+	})
+
+	router.POST("/todos", func(c *gin.Context) {
+		todos = append(todos, c.PostForm("task"))
 
 		c.HTML(http.StatusOK, "todos.tmpl", gin.H{
 			"Todos": todos,
